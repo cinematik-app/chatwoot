@@ -8,6 +8,12 @@ max_threads_count = ENV.fetch('RAILS_MAX_THREADS', 5)
 min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
+# There's a known problem with Puma and HTTP/2 keepalives
+# https://www.heroku.com/blog/pumas-routers-keepalives-ohmy/#the-solution
+# Can be re-enabled after puma is fixed
+# https://github.com/puma/puma/issues/3487#issuecomment-3080345825
+enable_keep_alives false
+
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
 port ENV.fetch('PORT', 3000)
